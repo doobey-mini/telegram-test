@@ -4,33 +4,42 @@
   <title>Send Name</title>
 </head>
 <body>
-
-  <form id="nameForm">
-    <input type="text" id="name" placeholder="Enter your name" required>
+  <h2>Enter your name</h2>
+  <form id="myForm">
+    <input type="text" id="name" placeholder="Your name" required>
     <button type="submit">Send</button>
   </form>
 
   <p id="status"></p>
 
   <script>
-    document.getElementById("nameForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
+    const form = document.getElementById('myForm');
+    const status = document.getElementById('status');
 
-      const name = document.getElementById("name").value;
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // prevent page reload
 
-      const res = await fetch("/api/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name })
-      });
+      const name = document.getElementById('name').value;
 
-      if (res.ok) {
-        document.getElementById("status").innerText = "Sent to Telegram ✅";
-      } else {
-        document.getElementById("status").innerText = "Error ❌";
+      try {
+        const res = await fetch('/api/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: name, password: 'demo' })
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          status.innerText = "Message sent to Telegram ✅";
+        } else {
+          status.innerText = "Error sending message ❌";
+        }
+      } catch (err) {
+        status.innerText = "Request failed ❌";
+        console.error(err);
       }
     });
   </script>
-
 </body>
 </html>
